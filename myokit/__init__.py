@@ -175,24 +175,44 @@ def version(raw=False):
         return '\n Myokit version ' + VERSION + ' '*(15-len(VERSION)) \
             + '|/\\\n_______________________________|  |______'
 # Exceptions
-from ._err import MyokitError
-from ._err import IntegrityError, InvalidBindingError, InvalidLabelError
-from ._err import DuplicateName, InvalidNameError, IllegalAliasError
-from ._err import UnresolvedReferenceError, IllegalReferenceError
-from ._err import UnusedVariableError, CyclicalDependencyError
-from ._err import MissingRhsError, MissingTimeVariableError
-from ._err import NonLiteralValueError, NumericalError
-from ._err import IncompatibleUnitError, InvalidMetaDataNameError
-from ._err import DuplicateFunctionName, DuplicateFunctionArgument
-from ._err import InvalidFunction
-from ._err import ParseError, SectionNotFoundError
-from ._err import ProtocolParseError, ProtocolEventError
-from ._err import SimultaneousProtocolEventError
-from ._err import SimulationError, FindNanError, SimulationCancelledError
-from ._err import InvalidDataLogError, DataLogReadError, DataBlockReadError
-from ._err import GenerationError, CompilationError
-from ._err import ImportError, ExportError
-from ._err import IncompatibleModelError
+from ._err import (
+    MyokitError,
+    IntegrityError,
+    InvalidBindingError,
+    InvalidLabelError,
+    DuplicateName,
+    InvalidNameError,
+    IllegalAliasError,
+    UnresolvedReferenceError,
+    IllegalReferenceError,
+    UnusedVariableError,
+    CyclicalDependencyError,
+    MissingRhsError,
+    MissingTimeVariableError,
+    NonLiteralValueError,
+    NumericalError,
+    IncompatibleUnitError,
+    InvalidMetaDataNameError,
+    DuplicateFunctionName,
+    DuplicateFunctionArgument,
+    InvalidFunction,
+    ParseError,
+    SectionNotFoundError,
+    ProtocolParseError,
+    ProtocolEventError,
+    SimultaneousProtocolEventError,
+    SimulationError,
+    FindNanError,
+    SimulationCancelledError,
+    InvalidDataLogError,
+    DataLogReadError,
+    DataBlockReadError,
+    GenerationError,
+    CompilationError,
+    ImportError,
+    ExportError,
+    IncompatibleModelError,
+)
 # Check if all errors imported
 # Dynamically importing them doesn't seem to be possible, and forgetting to
 #  import an error creates a hard to debug bug (something needs to go wrong
@@ -254,6 +274,7 @@ from ._datablock import DataBlock1d, DataBlock2d, ColorMap
 from ._sim import ProgressReporter, ProgressPrinter
 from ._sim import CModule, CppModule
 from ._sim.cvode import Simulation
+from ._sim.cvodes import Simulation2
 from ._sim.cable import Simulation1d
 from ._sim.opencl import OpenCL
 from ._sim.opencl import OpenCLInfo, OpenCLPlatformInfo, OpenCLDeviceInfo

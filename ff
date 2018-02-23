@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+import myokit
+import matplotlib.pyplot as pl
+
+m, p, _ = myokit.load('/home/michael/dev/models/decker-2009.mmt')
+s = myokit.Simulation2(m, p)
+
+d = s.run(1000)
+
+pl.figure()
+pl.plot(d['engine.time'], d['membrane.V'])
+pl.show()
+

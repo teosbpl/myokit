@@ -1035,7 +1035,7 @@ class DataLog(OrderedDict):
         if period <= 0:
             raise ValueError('Period must be greater than zero')
         # Get start, end, etc
-        tmin = 0    # time[0]
+        tmin = time[0]
         tmax = time[len(time) - 1]
         nlogs = int(np.ceil((tmax - tmin) / period))
         if nlogs < 2:

@@ -45,6 +45,8 @@ setup(
         'numpy',
         'scipy',
         'matplotlib>=1.5',
+        'configparser',
+        'future'
         # PyQT or PySide?
     ],
 )

@@ -9,7 +9,7 @@
 import re
 import xml.dom
 import textwrap
-import HTMLParser
+from html.parser import HTMLParser
 
 
 def dom_child(node, selector=None):

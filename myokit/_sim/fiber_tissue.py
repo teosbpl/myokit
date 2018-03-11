@@ -6,11 +6,12 @@
 #  Licensed under the GNU General Public License v3.0
 #  See: http://myokit.org
 #
+from __future__ import absolute_import
 import os
 import myokit
 
 # OpenCLSim keywords
-from openclsim import KEYWORDS
+from .openclsim import KEYWORDS
 
 # Location of C and OpenCL sources
 SOURCE_FILE = 'fiber_tissue.c'

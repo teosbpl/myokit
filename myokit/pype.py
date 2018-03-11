@@ -12,7 +12,12 @@ import os
 import sys
 import parser
 import traceback
-from cStringIO import StringIO
+try:
+    # Python 2
+    from cStringIO import StringIO
+except ImportError:
+    # Python3
+    from io import StringIO
 
 
 class TemplateEngine(object):

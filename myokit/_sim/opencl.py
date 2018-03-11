@@ -8,7 +8,7 @@
 #
 import os
 import myokit
-import ConfigParser
+from configparser import ConfigParser
 
 
 # Settings file

@@ -1918,7 +1918,7 @@ class OrderedPiecewise(Function):
             self._e[i] = oper.next()
             op = oper.next()
             if not op.is_literal():
-                print op
+                print(op)
                 raise myokit.NonLiteralValueError(
                     'The points splitting the domain of an OrderedPiecewise'
                     ' function must be given as literal values.')
@@ -2623,7 +2623,7 @@ class Unit(object):
     }
 
     # Mapping of SI quantifier symbols to their values
-    _si_quantifiers = dict((v, k) for k, v in _si_exponents.iteritems())
+    _si_quantifiers = dict((v, k) for k, v in _si_exponents.items())
 
     def __init__(self, exponents=None, multiplier=0):
         if exponents is None:

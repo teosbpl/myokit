@@ -27,6 +27,7 @@ and then a myokit.Simulation which you can .run() to obtain simulated results.
 # will generate an error.
 #
 from __future__ import print_function
+from __future__ import absolute_import
 # Check python version
 import sys
 if sys.hexversion < 0x02070000:
@@ -42,12 +43,15 @@ if sys.hexversion > 0x03000000:
     print('Detected Python version: ')
     print(sys.version)
     print()
-    sys.exit(1)
-del(sys)
+    #sys.exit(1)
+
 # Constants
 # Version information
 VERSION_INT = 1,26,4
-VERSION = '.'.join([str(x) for x in VERSION_INT]); del(x)
+VERSION = '.'.join([str(x) for x in VERSION_INT])
+if not sys.hexversion > 0x03000000:
+    del(x)
+del(sys)
 RELEASE = ''
 # Licensing
 # Full license text
@@ -164,7 +168,8 @@ OPENCL_LIB = []
 # Location of the OpenCL header files (.h)
 OPENCL_INC = []
 # Load settings
-import _config
+
+from myokit import _config
 del(_config)
 # Myokit version
 def version(raw=False):
@@ -278,9 +283,9 @@ from ._aux import run
 # This allows these modules to be used after myokit was imported, without
 # importing the modules specifically (like os and os.path).
 # All modules imported here must report so in their docs
-import mxml
-import pacing
-import units # Also loads all common unit names
+from myokit import mxml
+from myokit import pacing
+from myokit import units # Also loads all common unit names
 # Globally shared progress reporter
 _Simulation_progress = None
 # Default mmt file parts

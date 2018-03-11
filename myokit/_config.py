@@ -16,7 +16,7 @@ import myokit
 # Load libraries
 import os
 import platform
-import ConfigParser
+from configparser import RawConfigParser
 
 
 def _create(path):
@@ -27,7 +27,7 @@ def _create(path):
     # Get operating system
     system = platform.system()
     # Create config parser
-    config = ConfigParser.ConfigParser(allow_no_value=True)
+    config = ConfigParser(allow_no_value=True)
     # Make the parser case sensitive (need for unix paths!)
     config.optionxform = str
     # General information
@@ -164,7 +164,7 @@ def _load():
     if not os.path.isfile(path):
         _create(path)
     # Create the config parser (no value allows comments)
-    config = ConfigParser.ConfigParser(allow_no_value=True)
+    config = RawConfigParser(allow_no_value=True)
     # Make the parser case sensitive (need for unix paths!)
     config.optionxform = str
     # Parse the config file

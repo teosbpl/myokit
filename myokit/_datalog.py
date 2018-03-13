@@ -1512,7 +1512,7 @@ def prepare_log(
     # Function to check if variable is allowed (doesn't handle derivatives)
     def check_if_allowed_class(var):
         if var.is_constant():
-            raise Exception('This log does not support constants.')
+            raise Exception('This log does not support constants. Offending variable: %s' % (str(var)))
         elif var.is_state():
             if not myokit.LOG_STATE & allowed_classes:
                 raise Exception('This log does not support state variables.')

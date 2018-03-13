@@ -952,7 +952,7 @@ class StrengthDuration(object):
                     traceback.print_exc()
                 t2 = False
             if debug:
-                print t2
+                print(t2)
             if t1 == t2:
                 # No zero crossing found
                 amplitudes[k] = np.nan

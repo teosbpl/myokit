@@ -6,8 +6,9 @@
 #  Licensed under the GNU General Public License v3.0
 #  See: http://myokit.org
 #
-from _exporter import PythonExporter
-from _ewriter import PythonExpressionWriter, NumpyExpressionWriter
+from __future__ import absolute_import
+from ._exporter import PythonExporter
+from ._ewriter import PythonExpressionWriter, NumpyExpressionWriter
 
 # Importers
 # Exporters

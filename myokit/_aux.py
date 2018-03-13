@@ -1246,7 +1246,7 @@ def strfloat(number):
     """
     Turns the given number into a string, without losing accuracy.
     """
-    if type(number) in [str, unicode]:
+    if type(number) in ("".__class__, u"".__class__):
         return number
     if isinstance(number, myokit.Number):
         number = number.eval()

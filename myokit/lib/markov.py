@@ -370,8 +370,8 @@ class LinearModel(object):
         local = {}
         # TODO What's the difference between these two?
         # If the function version works, use that for python3 compatibility!
-        # exec(code, globl, local)
-        exec code in globl, local
+        exec(code, globl, local)
+        ex#ec code in globl, local
         self._matrix_function = local['matrix_function']
         #
         # Create function to return list of transition rates
@@ -389,8 +389,8 @@ class LinearModel(object):
         code = head + '\n' + '\n'.join(['    ' + line for line in body])
         globl = {'numpy': np}
         local = {}
-        #exec(code, globl, local)
-        exec code in globl, local
+        exec(code, globl, local)
+        #exec code in globl, local
         self._rate_list_function = local['rate_list_function']
 
     def current(self):

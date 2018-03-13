@@ -6,10 +6,12 @@
 #  Licensed under the GNU General Public License v3.0
 #  See: http://myokit.org
 #
+from __future__ import absolute_import
 import myokit
 import os
 import sys
 import traceback
+from myokit._aux import TextLogger
 
 # Constants
 DIR_FORMATS = os.path.join(myokit.DIR_MYOKIT, 'formats')
@@ -21,7 +23,7 @@ _EWRITERS = None
 
 
 # Classes & methods
-class Exporter(myokit.TextLogger):
+class Exporter(TextLogger):
     """
     *Abstract class, extends:* :class:`myokit.TextLogger`
 
@@ -331,7 +333,7 @@ def ewriters():
     return sorted(_EWRITERS.keys())
 
 
-class Importer(myokit.TextLogger):
+class Importer(TextLogger):
     """
     *Abstract class, extends:* :class:`myokit.TextLogger`
 

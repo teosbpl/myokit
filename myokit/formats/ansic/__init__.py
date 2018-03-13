@@ -6,8 +6,10 @@
 #  Licensed under the GNU General Public License v3.0
 #  See: http://myokit.org
 #
-from _exporter import AnsiCExporter, AnsiCCableExporter, AnsiCEulerExporter
-from _ewriter import AnsiCExpressionWriter
+from __future__ import absolute_import
+import myokit
+from ._exporter import AnsiCExporter, AnsiCCableExporter, AnsiCEulerExporter
+from ._ewriter import AnsiCExpressionWriter
 
 
 # Importers

@@ -26,7 +26,7 @@ def parse(source):
     """
     # Get raw stream
     raw = source
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -67,7 +67,7 @@ def parse_model(source):
     """
     # Get raw stream
     raw = source
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -91,7 +91,7 @@ def parse_protocol(source):
     """
     # Get raw stream
     raw = source
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -115,7 +115,7 @@ def parse_script(source):
     """
     # Get raw stream
     raw = source
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -157,7 +157,7 @@ def parse_state(state):
     """
     # Get raw stream
     raw = state
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -201,7 +201,7 @@ def split(source):
     """
     # Get raw stream
     raw = source
-    if type(raw) in [str, unicode]:
+    if type(raw) in ("".__class__, u"".__class__):
         raw = raw.splitlines()
     try:
         raw.next
@@ -401,7 +401,7 @@ def parse_model_from_stream(stream, syntax_only=False):
             reg_token(info, t0, expr)
         token = stream.peek()
     # Save order of state variables
-    state_order = info.initial_values.keys()
+    state_order = list(info.initial_values.keys())
     # Parse components
     while stream.peek()[0] == BRACKET_OPEN:
         parse_component(stream, info)
@@ -410,7 +410,7 @@ def parse_model_from_stream(stream, syntax_only=False):
     if syntax_only:
         return True
     # All initial variables must have been used
-    for qname, e in info.initial_values.iteritems():
+    for qname, e in info.initial_values.items():
         raise ParseError(
             'Unused initial value', 0, 0,
             'An unused initial value was found for "' + str(qname) + '".')
@@ -419,9 +419,9 @@ def parse_model_from_stream(stream, syntax_only=False):
     # Order encountered tokens
     m = model._tokens
     model._tokens = {}
-    for line in sorted(m.iterkeys()):
+    for line in sorted(m.keys()):
         model._tokens[line] = {}
-        for char in sorted(m[line].iterkeys()):
+        for char in sorted(m[line].keys()):
             model._tokens[line][char] = m[line][char]
     # Resolve alias map
     resolve_alias_map_names(info)
@@ -768,8 +768,8 @@ def resolve_alias_map_names(info):
      - No two aliasses are tied to the same variable (within a single
       component)
     """
-    for comp, amap in info.alias_map.iteritems():
-        for name, (t_use, t_comp, t_var) in amap.iteritems():
+    for comp, amap in info.alias_map.items():
+        for name, (t_use, t_comp, t_var) in amap.items():
             var_name = t_comp[1] + '.' + t_var[1]
             (var, sug, msg) = info.model.suggest_variable(var_name)
             if var is None:
@@ -1004,7 +1004,7 @@ def strip_expression_units(model_text, skip_literals=True):
     This method will raise a :class:`myokit.ParseError` if the given code
     cannot be parsed to a valid model.
     """
-    if type(model_text) in (str, unicode):
+    if type(model_text) in ("".__class__, u"".__class__):
         lines = model_text.splitlines()
     else:
         lines = model_text
@@ -1244,7 +1244,7 @@ class Tokenizer:
         self._catchers = {}
         self._catcheri = 0
         # String given instead of stream of lines? Convert
-        if type(stream_of_lines) in (str, unicode):
+        if type(stream_of_lines) in ("".__class__, u"".__class__):
             stream_of_lines = iter(stream_of_lines.splitlines())
         # Create tokenizer
         self._tokenizer = self._tizer(stream_of_lines, check_indenting)
@@ -1259,14 +1259,14 @@ class Tokenizer:
         Advances to the next token.
         """
         self._next = self._peek
-        for c in self._catchers.itervalues():
+        for c in self._catchers.values():
             c.append(self._next[1])
         try:
-            self._peek = self._tokenizer.next()
+            self._peek = next(self._tokenizer)
             while self._peek[0] == WHITESPACE:
-                for c in self._catchers.itervalues():
+                for c in self._catchers.values():
                     c.append(self._peek[1])
-                self._peek = self._tokenizer.next()
+                self._peek = next(self._tokenizer)
         except StopIteration:
             self._has_last_value = True
 
@@ -1851,8 +1851,7 @@ def format_parse_error(ex, source=None):
     out.append('On line ' + str(ex.line) + ' character ' + str(ex.char))
     line = None
     if ex.line > 0 and source is not None:
-        kind = type(source)
-        if (kind == str or kind == unicode) and os.path.isfile(source):
+        if isinstance(source,("".__class__, u"".__class__)) and os.path.isfile(source):
             # Re-open file, find line
             f = open(source, 'r')
             for i in xrange(0, ex.line):

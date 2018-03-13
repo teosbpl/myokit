@@ -10,6 +10,7 @@ from collections import OrderedDict
 import math
 import re
 import myokit
+import myokit.formats.ansic as ansic
 
 try:
     # Python 2
@@ -83,7 +84,7 @@ class ObjectWithMeta(object):
         """
         Clones this object's metadata into ``clone``.
         """
-        for k, v in self.meta.iteritems():
+        for k, v in self.meta.items():
             clone.meta[str(k)] = str(v)
 
     def _code_meta(self, b, tabs=0, ignore=None):
@@ -534,7 +535,7 @@ class VarOwner(ModelPart, VarProvider):
                 return viter(self)
             else:
                 def viter(owner):
-                    for v in owner._variables.itervalues():
+                    for v in owner._variables.values():
                         yield v
                         for w in v._create_variable_stream(True, False):
                             yield w
@@ -542,11 +543,11 @@ class VarOwner(ModelPart, VarProvider):
         else:
             if sort:
                 def viter(owner):
-                    for n, v in sorted(owner._variables.iteritems()):
+                    for n, v in sorted(owner._variables.items()):
                         yield v
                 return viter(self)
             else:
-                return self._variables.itervalues()
+                return self._variables.values()
 
     def get(self, name, class_filter=None):
         """
@@ -937,7 +938,7 @@ class Model(ObjectWithMeta, VarProvider):
         # Copy meta data
         self._clone_metadata(clone)
         # Clone component/variable structure
-        for c in self._components.itervalues():
+        for c in self._components.values():
             c._clone1(clone)
         # Clone state
         for k, v in enumerate(self._state):
@@ -950,7 +951,7 @@ class Model(ObjectWithMeta, VarProvider):
             lhsmap[myokit.Derivative(myokit.Name(v))] = myokit.Derivative(
                 myokit.Name(clone.get(v.qname())))
         # Clone component/variable contents (equations, references)
-        for k, c in self._components.iteritems():
+        for k, c in self._components.items():
             c._clone2(clone[k], lhsmap)
         # Copy unique names
         clone.reserve_unique_names(*iter(self._reserved_unames))
@@ -1007,9 +1008,9 @@ class Model(ObjectWithMeta, VarProvider):
             def i(s):
                 for k, v in s:
                     yield v
-            return i(sorted(self._components.iteritems()))
+            return i(sorted(self._components.items()))
         else:
-            return self._components.itervalues()
+            return self._components.values()
 
     def component_cycles(self):
         """
@@ -2614,7 +2615,7 @@ class Model(ObjectWithMeta, VarProvider):
             # Deep validation
             c.validate(fix_crudely)
         # Test component mapping
-        for n, c in self._components.iteritems():
+        for n, c in self._components.items():
             if n != c.qname():
                 self._valid = False
                 raise myokit.IntegrityError(
@@ -2679,8 +2680,8 @@ class Model(ObjectWithMeta, VarProvider):
         # Follow all state variables (unless already visited), all bound
         # variables and all used variables.
         used = [x for x in self._state]
-        used += [x for x in self._bindings.itervalues()]
-        used += [x for x in self._labels.itervalues()]
+        used += [x for x in self._bindings.values()]
+        used += [x for x in self._labels.values()]
 
         # Check for cycles
         trail = []
@@ -2844,7 +2845,7 @@ class Component(VarOwner):
         """
         model = component.model()
         # Clone alias map
-        for k, v in self._alias_map.iteritems():
+        for k, v in self._alias_map.items():
             component.add_alias(k, model.get(v.qname()))
         # Clone equations
         for v in self.variables():

@@ -78,7 +78,7 @@ class TemplateEngine(object):
                 syserr = sys.stderr
                 sys.stdout = stdout
                 sys.stderr = stderr
-                exec(script) in variables
+                exec(script,variables)
             except Exception:
                 error = sys.exc_info()
             finally:
